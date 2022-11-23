@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lists, Conditionals, and Computed Properties</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full grid place-items-center">
+    <div id="app">
+         <!-- remaining task -->
+        <section v-show="assignments.filter(assignment => !assignment.checked).length">
+            <h1 class="text-lg font-bold mb-2">Task To DO</h1>
+            <ul>
+                <li v-for="item in assignments" :key="item.id">
+                    <label v-if="item.checked==false">
+                        {{item.name}}
+                        <input type="checkbox" v-model="item.checked">
+                    </label>
+                </li>
+            </ul>
+        </section>
+
+        <!-- completed task -->
+        <section v-show="assignments.filter(assignment => assignment.checked).length">
+            <h1 class="text-lg font-bold mb-2 mt-4">Completed</h1>
+            <ul>
+                <li v-for="item in assignments" :key="item.id">
+                    <label v-if="item.checked==!false">
+                        {{item.name}}
+                        <input type="checkbox" v-model="item.checked">
+                    </label>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    assignments: [
+                        {id: 1, name: 'Assignment 1', grade: 100, checked: false},
+                        {id: 2, name: 'Assignment 1', grade: 800, checked: false},
+                        {id: 3, name: 'Assignment 2', grade: 700, checked: false},
+                        {id: 4, name: 'Assignment 3', grade: 100, checked: false},
+                        {id: 5, name: 'Assignment 4', grade: 900, checked: false},
+                        {id: 5, name: 'Assignment 4', grade: 900, checked: true},
+                    ],
+
+                }
+            }
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+</html>
